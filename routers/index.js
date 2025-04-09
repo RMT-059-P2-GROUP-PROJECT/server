@@ -17,5 +17,6 @@ router.post('/groups', ControllGroup.createGroup)
 router.get('/groups/join/:inviteCode', ControllGroup.shareGroup)
 router.get('/group/:groupId', messageController.getMessage)
 router.post('/group/:groupId', messageController.postMessage)
+router.get('/summerize-AI/:groupId', messageController.summerizeAI)
 
 module.exports = router
