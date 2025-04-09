@@ -1,10 +1,10 @@
-const {Message, User, GroupMember} = require('../models');
+const {Message, User, GroupUser} = require('../models');
 
 class messageController {
     static async getMessage(req, res, next) {
         try {
             const id = +req.params.groupId;
-            const checkMember = await GroupMember.findOne({
+            const checkMember = await GroupUser.findOne({
                 where: {
                     GroupId: id,
                     UserId: req.user.id
@@ -36,7 +36,7 @@ class messageController {
         try {
             const id = +req.params.groupId;
             const { message } = req.body;
-            const checkMember = await GroupMember.findOne({
+            const checkMember = await GroupUser.findOne({
                 where: {
                     GroupId: id,
                     UserId: req.user.id
