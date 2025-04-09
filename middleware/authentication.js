@@ -29,4 +29,4 @@ const AuthenticationMiddleware = async(req, res, next) => {
     }
 }
 
-module.exports = AuthenticationMiddleware
+module.exports = AuthenticationMiddleware;

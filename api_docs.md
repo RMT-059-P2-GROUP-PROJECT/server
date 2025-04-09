@@ -50,3 +50,40 @@ OR
   "message": "Password is required"
 }
 ```
+
+
+## 2. POST /groups
+
+Request:
+
+- body:
+
+```json
+{
+  "username" : "name"
+}
+```
+
+Response (201 - Created)
+
+```json
+{
+    "message": "string",
+    "group": {
+        "id": "integer",
+        "name": "string",
+        "inviteCode": "string",
+        "createdBy": "integer",
+        "updatedAt": "2025-04-09T00:28:09.508Z",
+        "createdAt": "2025-04-09T00:28:09.508Z"
+    }
+}
+```
+
+Response (400 - Bad Request)
+
+```json
+{
+    "message": "Group name is required"
+}
+```
