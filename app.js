@@ -13,7 +13,6 @@ const httpServer = createServer(app)
 const io = new Server(httpServer, {
     cors: "*"
 })
-app.set('io', io)
 const port = 3000
 
 app.use(cors())
@@ -27,21 +26,17 @@ io.on('connection', (socket) => {
         console.log(socket.id, "disconnected")
     })
 
-    io.emit('mySocketId', socket.id)
-    io.emit('handShakeAuth', socket.handshake.auth)
-
-    // join room
     // Handle joining group rooms
-    socket.on('join:group', (groupId) => {
+    socket.on('join_group', (groupId) => {
         socket.join(`group_${groupId}`);
-        console.log(`Socket ${socket.id} joined group ${groupId}`);
+        console.log(`user ${socket.id} joined group ${groupId}`);
     });
 
-    socket.on("chat:message:fetch", () => {
-        io.emit("chat:message:create:response", messages)
-    })
+    io.emit('mySocketId', socket.id)
+    io.emit('handShakeAuth', socket.handshake.auth)
 })
 
+app.set('io', io);
 app.use('/', require('./routers/index'))
 
 app.use(errorHandler)

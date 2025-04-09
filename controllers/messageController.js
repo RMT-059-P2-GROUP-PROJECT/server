@@ -57,6 +57,21 @@ class messageController {
                 GroupId: id,
                 SenderId: req.user.id
             });
+
+            // Populate the user data for the emitted message
+            const messageWithUser = await Message.findByPk(messages.id, {
+                include: [
+                    {
+                        model: User,
+                        attributes: ['id', 'username']
+                    }
+                ]
+            });
+
+            const io = req.app.get('io');
+            // Emit the new message to all clients in the group room
+            io.to(`group_${id}`).emit('new_message', messageWithUser);
+
             res.status(201).json(messages);
         } catch (error) {
             next(error);
