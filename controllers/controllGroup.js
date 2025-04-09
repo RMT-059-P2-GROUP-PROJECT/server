@@ -1,7 +1,28 @@
 const crypto = require('crypto');
 const { Group, GroupUser } = require('../models');
+const { where } = require('sequelize');
 
 class ControllGroup {
+    static async getGroup(req,res,next){
+        try {
+            const group = await GroupUser.findAll({
+                where: {
+                    UserId : req.user.id
+                },
+                include: [{
+                    model: Group
+                }]
+            })
+
+            if(!group) {
+                throw { name: 'NotFound', message: 'No Group found for this user' };
+            }
+            
+            res.status(200).json(group)
+        } catch (error) {
+            next(error)
+        }
+    }
     static async createGroup(req, res, next) {
         try {
             const { name } = req.body;

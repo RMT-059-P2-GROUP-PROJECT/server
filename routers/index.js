@@ -16,6 +16,7 @@ router.post('/login', ControllUser.login)
 router.post('/google-login', ControllUser.googleLogin)
 
 router.use(AuthenticationMiddleware)
+router.get('/groups', ControllGroup.getGroup)
 router.post('/groups', ControllGroup.createGroup)
 router.get('/groups/join/:inviteCode', ControllGroup.shareGroup)
 router.get('/groups/:groupId', messageController.getMessage)
