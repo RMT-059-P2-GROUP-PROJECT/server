@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const express = require('express')
 const router = express.Router()
 const ControllUser = require('../controllers/controllUser')
@@ -11,12 +13,13 @@ router.get('/', (req, res) => {
 
 router.post('/register', ControllUser.register)
 router.post('/login', ControllUser.login)
+router.post('/google-login', ControllUser.googleLogin)
 
 router.use(AuthenticationMiddleware)
 router.post('/groups', ControllGroup.createGroup)
 router.get('/groups/join/:inviteCode', ControllGroup.shareGroup)
-router.get('/group/:groupId', messageController.getMessage)
-router.post('/group/:groupId', messageController.postMessage)
+router.get('/groups/:groupId', messageController.getMessage)
+router.post('/groups/:groupId', messageController.postMessage)
 router.get('/summerize-AI/:groupId', messageController.summerizeAI)
 
 module.exports = router
