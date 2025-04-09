@@ -36,6 +36,11 @@ class messageController {
         try {
             const id = +req.params.groupId;
             const { message } = req.body;
+
+            if (!message) {
+                throw { name: 'BadRequest', message: 'Message is required' };
+            }
+
             const checkMember = await GroupUser.findOne({
                 where: {
                     GroupId: id,
@@ -49,7 +54,7 @@ class messageController {
             const messages = await Message.create({
                 message: message,
                 GroupId: id,
-                UserId: req.user.id
+                SenderId: req.user.id
             });
             res.status(201).json(messages);
         } catch (error) {
