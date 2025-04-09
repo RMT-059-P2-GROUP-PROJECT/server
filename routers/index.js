@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const express = require('express')
 const router = express.Router()
 const ControllUser = require('../controllers/controllUser')
@@ -11,6 +13,7 @@ router.get('/', (req, res) => {
 
 router.post('/register', ControllUser.register)
 router.post('/login', ControllUser.login)
+router.post('/google-login', ControllUser.googleLogin)
 
 router.use(AuthenticationMiddleware)
 router.post('/groups', ControllGroup.createGroup)
