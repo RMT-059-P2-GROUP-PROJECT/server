@@ -13,9 +13,14 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      inviteCode: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
+      },
       createdBy: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
