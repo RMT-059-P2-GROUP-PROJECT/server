@@ -67,6 +67,22 @@ class ControllGroup {
             next(err)
         }
     }
+
+    static async generateLink(req, res, next) {
+        try {
+            const { groupId } = req.params;
+
+            const group = await Group.findByPk(groupId);
+
+            if (!group) {
+                throw { name: "NotFound", message: "Group not found" };
+            }
+
+            res.status(201).json({ message: `/groups/join/${group.inviteCode}`});
+        } catch (err) {
+            next(err)
+        }
+    }
 }
 
 module.exports = ControllGroup;

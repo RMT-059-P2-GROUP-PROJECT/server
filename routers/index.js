@@ -22,4 +22,6 @@ router.get('/groups/:groupId', messageController.getMessage)
 router.post('/groups/:groupId', messageController.postMessage)
 router.get('/summerize-AI/:groupId', messageController.summerizeAI)
 
+router.post('/groups/link-generate/:groupId', ControllGroup.generateLink)
+
 module.exports = router
