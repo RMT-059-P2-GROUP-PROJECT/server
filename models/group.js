@@ -18,7 +18,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   Group.init({
     name: DataTypes.STRING,
-    createdBy: DataTypes.STRING
+    createdBy: DataTypes.INTEGER,
+    inviteCode: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    }    
   }, {
     sequelize,
     modelName: 'Group',
