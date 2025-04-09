@@ -1,5 +1,5 @@
 const { User } = require('../models');
-const {comparePassword} = require('../helpers/bcrypt')
+const { comparePassword } = require('../helpers/bcrypt')
 const { signToken } = require('../helpers/jwt');
 const { OAuth2Client } = require('google-auth-library')
 
@@ -15,7 +15,7 @@ class ControllUser {
         }
     }
 
-    static async login(req,res,next){
+    static async login(req, res, next) {
         try {
             const { email, password } = req.body
             if (!email) {
@@ -37,8 +37,11 @@ class ControllUser {
                 throw { name: 'Unauthorized', message: 'Invalid email or password' }
             }
 
-            const access_token = signToken({ id: user.id})  
-            res.status(200).json({ access_token })
+            const access_token = signToken({ id: user.id })
+            res.status(200).json({
+                access_token: access_token,
+                id: user.id
+            })
         } catch (error) {
             next(error)
         }
@@ -46,7 +49,7 @@ class ControllUser {
 
     static async googleLogin(req, res, next) {
         try {
-            const {googleToken} = req.body
+            const { googleToken } = req.body
 
             const client = new OAuth2Client()
             const ticket = await client.verifyIdToken({
@@ -66,7 +69,10 @@ class ControllUser {
                 }
             })
             const access_token = signToken({ id: user.id })
-            res.status(200).json({ access_token })
+            res.status(200).json({
+                access_token: access_token,
+                id: user.id
+            })
         } catch (error) {
             next(error)
         }
