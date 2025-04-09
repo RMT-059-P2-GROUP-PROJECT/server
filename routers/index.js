@@ -3,6 +3,7 @@ const router = express.Router()
 const ControllUser = require('../controllers/controllUser')
 const AuthenticationMiddleware = require('../middleware/authentication')
 const ControllGroup = require('../controllers/controllGroup')
+const messageController = require('../controllers/messageController')
 
 router.get('/', (req, res) => {
   res.send('Hello World!')
@@ -13,5 +14,7 @@ router.post('/login', ControllUser.login)
 
 router.use(AuthenticationMiddleware)
 router.post('/groups', ControllGroup.createGroup)
+router.get('/group/:groupId', messageController.getMessage)
+router.post('/group/:groupId', messageController.postMessage)
 
 module.exports = router
