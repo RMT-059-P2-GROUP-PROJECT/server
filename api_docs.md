@@ -51,8 +51,48 @@ OR
 }
 ```
 
+## 2. POST /login
 
-## 2. POST /groups
+Request:
+
+- body:
+
+```json
+{
+  "email":"string",
+  "password":"string
+}
+```
+
+Response (200 - OK)
+
+```json
+{
+    "access_token": "string"
+}
+```
+
+Response (400 - Bad Request)
+
+```json
+{
+    "message": "Email is required"
+}
+OR
+{
+    "message": "Password is required"
+}
+```
+
+Response (401 - Unauthorized)
+
+```json
+{
+    "message": "Invalid email or password"
+}
+```
+
+## 3. POST /groups
 
 Request:
 
@@ -85,5 +125,67 @@ Response (400 - Bad Request)
 ```json
 {
     "message": "Group name is required"
+}
+```
+
+## 4. GET /groups/:groupId
+
+Response (200 - OK)
+
+```json
+{
+    "message": "string",
+    "createdAt": "date",
+    "updatedAt": "date",
+    "User": {
+        "id": "integer",
+        "username": "string"
+    }
+}
+```
+
+Response (403 - Forbidden)
+
+```json
+{
+    "message": "You are not a member of this group"
+}
+```
+
+## 5. POST /groups/:groupId
+
+Request:
+
+- body:
+
+```json
+{
+  "message" : "string"
+}
+```
+
+Response (201 - Created)
+
+```json
+{
+    "message" : "string",
+    "GroupId" : "integer",
+    "SenderId" : "integer"
+}
+```
+
+Response (400 - Bad Request)
+
+```json
+{
+    "message": "Message is required"
+}
+```
+
+Response (403 - Forbidden)
+
+```json
+{
+    "message": "You are not a member of this group"
 }
 ```

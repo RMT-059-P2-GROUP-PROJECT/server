@@ -15,7 +15,7 @@ router.post('/login', ControllUser.login)
 router.use(AuthenticationMiddleware)
 router.post('/groups', ControllGroup.createGroup)
 router.get('/groups/join/:inviteCode', ControllGroup.shareGroup)
-router.get('/group/:groupId', messageController.getMessage)
-router.post('/group/:groupId', messageController.postMessage)
+router.get('/groups/:groupId', messageController.getMessage)
+router.post('/groups/:groupId', messageController.postMessage)
 
 module.exports = router
