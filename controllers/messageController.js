@@ -70,6 +70,7 @@ class messageController {
 
             const io = req.app.get('io');
             // Emit the new message to all clients in the group room
+            console.log(`${id} : ${messageWithUser}`)
             io.to(`group_${id}`).emit('new_message', messageWithUser);
 
             res.status(201).json(messages);
