@@ -13,7 +13,7 @@ const httpServer = createServer(app)
 const io = new Server(httpServer, {
     cors: "*"
 })
-const port = 3000
+const port = process.env.PORT || 3000
 
 app.use(cors())
 app.use(express.json())
@@ -41,6 +41,18 @@ app.use('/', require('./routers/index'))
 
 app.use(errorHandler)
 
-httpServer.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-})
+if (process.env.NODE_ENV !== 'test') {
+    httpServer.listen(port, () => {
+        console.log(`Example app listening on port ${port}`)
+    })
+} else {
+    console.log(`Server is running in test mode`)
+}
+
+const closeServer = () => {
+    if (httpServer) {
+        httpServer.close();
+    }
+}
+
+module.exports = { app, closeServer };
