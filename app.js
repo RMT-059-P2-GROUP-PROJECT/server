@@ -20,13 +20,23 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 io.on('connection', (socket) => {
-    //...
-    console.log(socket.handshake.auth, "<<<< socket auth")
-    console.log(socket.id, "<<<< socket id")
+    // console.log(socket.handshake.auth, "<<<< socket auth")
+    console.log(socket.id, "connected")
+    socket.on('disconnect', () => {
+        console.log(socket.id, "disconnected")
+    })
 
-    socket.emit("wellcome_message", "Welcome to socket server")
+    // Handle joining group rooms
+    socket.on('join_group', (groupId) => {
+        socket.join(`group_${groupId}`);
+        console.log(`user ${socket.id} joined group ${groupId}`);
+    });
+
+    io.emit('mySocketId', socket.id)
+    io.emit('handShakeAuth', socket.handshake.auth)
 })
 
+app.set('io', io);
 app.use('/', require('./routers/index'))
 
 app.use(errorHandler)
