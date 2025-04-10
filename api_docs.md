@@ -3,6 +3,15 @@
 List of available endpoints:
 
 - `POST /register`
+- `POST /login`
+- `POST /google-login`
+- `GET /groups`
+- `POST /groups`
+- `GET /groups/join/:inviteCode`
+- `GET /groups/:groupId`
+- `POST /groups/:groupId`
+- `GET /summerize-AI/:groupId`
+- `POST /groups/link-generate/:groupId`
 
 
 ## 1. POST /register
